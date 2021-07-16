@@ -34,6 +34,7 @@ gem 'git'
 gem 'dropbox_api'
 gem 'helpscout'
 gem 'rack-cas'
+gem 'openid_connect'
 
 # manages settings in database
 gem 'rails-settings-cached', '~>0.4.1'

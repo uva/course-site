@@ -35,7 +35,7 @@ class Grade < ApplicationRecord
 
 	before_validation do |grade|
 		# assistants always take ownership of the grade when editing
-		grade.grader = Current.user if grade.grader.blank? || (Current.user.present? && Current.user != grade.grader && grade.grader.senior?)
+		grade.grader = @current_user if grade.grader.blank? || (@current_user.present? && @current_user != grade.grader && grade.grader.senior?)
 	end
 
 	after_save do |grade|

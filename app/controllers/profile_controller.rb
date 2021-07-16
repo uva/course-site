@@ -1,6 +1,6 @@
 class ProfileController < ApplicationController
 
-	before_action :authorize
+	before_action :authenticate
 
 	include NavigationHelper
 
@@ -75,8 +75,9 @@ class ProfileController < ApplicationController
 		# create user if possible
 		ActiveRecord::Base.transaction do
 			user_params = params.require(:user).permit(:name, :mail, :schedule_id)
-			login = request.session['cas']['user'].downcase
+			login = request.session[:user_login]
 			current_user.create_profile(user_params, login)
+			session[:user_id] = current_user.id
 		end
 
 		redirect_to :root

@@ -1,32 +1,18 @@
 module AuthenticationHelper
 
+	# decides if any of the auth methods is satisfied
+	# may also be used by controller methods to make decisions
 	def authenticated?
-		return request.session['token'].present? || request.session['cas'].present?
+		return session[:user_login].present? || session[:user_id].present?
 	end
-	
+
 	def logged_in?
 		return authenticated? && current_user.persisted?
 	end
-	
+
 	def current_user
-		Current.user = @current_user || load_current_user
+		@current_user ||= (User.find_by(id: session[:user_id]) || User.new)
+		Current.user = @current_user
 	end
-	
-	private
-	
-	def load_current_user
-		if request.session['token'].present?
-			if user = User.where(token: request.session['token']).first
-				@current_user = user
-			end
-		elsif request.session['cas'].present? && login = Login.where(login: request.session['cas']['user'].downcase).first
-			@current_user = login.user
-		else
-			# use an empty user object in case of no login
-			@current_user = User.new(schedule: Schedule.find_open || Schedule.new)
-		end
-		
-		return @current_user
-	end
-	
+
 end

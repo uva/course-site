@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
 	# login
 	get 'session/login', to: 'session#new'
+	get 'session/callback', to: 'session#callback', as: 'session_callback'
+	get 'tokenize', to: 'session#tokenize'
 	get 'session/logout', to: 'session#destroy'
 
 	#--ADMIN------------------------------------------------------------------------------------

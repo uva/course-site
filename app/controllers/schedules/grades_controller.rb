@@ -45,7 +45,7 @@ class Schedules::GradesController < Schedules::ApplicationController
 		raise ActionController::RoutingError.new('Not Found') if not Grading::FinalGradeAssigner.available?
 
 		@schedule.users.each do |student|
-			Grading::FinalGradeAssigner.assign_final_grade(student, @current_user, only: params[:grades])
+			Grading::FinalGradeAssigner.assign_final_grade(student, current_user, only: params[:grades])
 		end
 		redirect_back fallback_location: '/'
 	end

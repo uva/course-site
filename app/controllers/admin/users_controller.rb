@@ -22,7 +22,7 @@ class Admin::UsersController < ApplicationController
 	def create
 		@u = User.new(params.require(:user).permit(:name, :mail, :schedule_id))
 		@u.student!
-		@url = root_url(token: @u.token)
+		@url = tokenize_url(token: @u.token)
 	end
 
 	# Sets or unsets user role.

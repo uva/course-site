@@ -283,6 +283,10 @@ ActiveRecord::Schema.define(version: 2021_07_14_150308) do
     t.text "grades_cache"
     t.integer "current_module_id"
     t.text "progress"
+    t.string "login"
+    t.string "student_number"
+    t.string "affiliation"
+    t.string "organization"
     t.integer "status"
     t.integer "hands_count", default: 0, null: false
     t.integer "hands_duration_count", default: 0, null: false
